@@ -9,4 +9,5 @@ do
 	if [ $BOOTUSAGE -gt $MAILLEVEL ] || [ $ROOTUSAGE -gt $MAILLEVEL ] ; then
 		echo "Disk usage has exceeded 80% threshold and is now almost at max capacity" | mail -s 'Critical Disk Space' root@localhost
 	fi
+	sleep 60
 done

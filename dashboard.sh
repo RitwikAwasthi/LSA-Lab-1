@@ -13,6 +13,15 @@ IOBYTESIN="$(cat /proc/net/dev | awk '{print $2}' | sed -n '3 p')"
 IOBYTESOUT="$(cat /proc/net/dev | awk '{print $10}' | sed -n '3 p')"
 ENPBYTESIN="$(cat /proc/net/dev | awk '{print $2}' | sed -n '4 p')"
 ENPBYTESOUT="$(cat /proc/net/dev | awk '{print $10}' | sed -n '4 p')"
+TOPCOUNT="$(cat /etc/passwd | cut -d ":" -f7 | sort | uniq -c | sort -n -r | sed -n '1 p' | awk '{print $1}')"
+SECCOUNT="$(cat /etc/passwd | cut -d ":" -f7 | sort | uniq -c | sort -n -r | sed -n '2 p' | awk '{print $1}')"
+THRCOUNT="$(cat /etc/passwd | cut -d ":" -f7 | sort | uniq -c | sort -n -r | sed -n '3 p' | awk '{print $1}')"
+TOP="$(cat /etc/passwd | cut -d ":" -f7 | sort | uniq -c | sort -n -r | sed -n '1 p' | awk '{print $2}')"
+SEC="$(cat /etc/passwd | cut -d ":" -f7 | sort | uniq -c | sort -n -r | sed -n '2 p' | awk '{print $2}')"
+THR="$(cat /etc/passwd | cut -d ":" -f7 | sort | uniq -c | sort -n -r | sed -n '3 p' | awk '{print $2}')"
+
+
+
 
 if ping -q -c 1 -W 1 8.8.8.8 >/dev/null; then
 	CONNECTION="YES"
@@ -34,9 +43,9 @@ echo "ACCOUNT INFORMATION ----------------------------------"
 printf "\n"
 printf "TOTAL USERS: %s   ACTIVE USERS: %s \n" "$TOTALUSERS" "$ACTIVEUSERS"
 printf "SHELLS: \n"
-printf "/sbin/nologin/: %s \n" "$NOLOGIN"
-printf "/bin/bash/: %s \n" "$BASH"
-printf "/bin/false/: %s \n" "$FALSE"
+printf "%s: %s \n" "$TOP" "$TOPCOUNT"
+printf "%s: %s \n" "$SEC" "$SECCOUNT"
+printf "%s: %s \n" "$THR" "$THRCOUNT"
 printf "\n" 
 
 echo "FILESYSTEM INFORMATION -------------------------------"
